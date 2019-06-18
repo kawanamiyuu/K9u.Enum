@@ -1,0 +1,43 @@
+{
+    "name": "k9u/enum",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Yuu Kawanami",
+            "email": "yuu.kawanami@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "php": ">=7.2"
+    },
+    "require-dev": {
+        "phpmd/phpmd": "^2.6",
+        "phpstan/phpstan": "^0.11.8",
+        "phpunit/phpunit": "^8.2",
+        "squizlabs/php_codesniffer": "^3.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "K9u\\Enum\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "K9u\\Enum\\": "tests/"
+        }
+    },
+    "scripts": {
+        "test": "phpunit --verbose",
+        "lint": [
+            "phpcs --standard=PSR12 --exclude=PSR12.Classes.ClassInstantiation src",
+            "phpmd src text phpmd.xml",
+            "phpstan analyze --no-progress --level=max src"
+        ],
+        "fmt": "phpcbf --standard=PSR12 --exclude=PSR12.Classes.ClassInstantiation src"
+    },
+    "config": {
+        "sort-packages": true
+    }
+}
