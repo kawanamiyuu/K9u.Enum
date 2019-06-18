@@ -1,6 +1,8 @@
 {
     "name": "k9u/enum",
+    "description": "an Enumeration implementation for PHP",
     "type": "library",
+    "keywords": ["enum", "enumeration"],
     "license": "MIT",
     "authors": [
         {
