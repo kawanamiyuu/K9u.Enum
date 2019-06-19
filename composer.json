@@ -31,7 +31,8 @@
         }
     },
     "scripts": {
-        "test": "phpunit --verbose",
+        "check":["@lint", "@test"],
+        "test": "phpdbg -qrr ./vendor/bin/phpunit --coverage-text --verbose",
         "lint": [
             "phpcs --standard=PSR12 --exclude=PSR12.Classes.ClassInstantiation src",
             "phpmd src text phpmd.xml",
