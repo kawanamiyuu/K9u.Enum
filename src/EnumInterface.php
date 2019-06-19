@@ -17,12 +17,12 @@ interface EnumInterface
 
     /**
      * @param string $name the name of the constant to return
-     * @return self the enum constant of the specified  name
+     * @return static the enum constant of the specified name
      */
     public static function valueOf(string $name);
 
     /**
-     * @return self[] all the constants of an enum type
+     * @return static[] all the constants of an enum type
      */
     public static function values(): array;
 }

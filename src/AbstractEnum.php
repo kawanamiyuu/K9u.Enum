@@ -20,37 +20,64 @@ abstract class AbstractEnum implements EnumInterface
      */
     abstract protected static function constants(): array;
 
+    /**
+     * @return string the name of this enum constant
+     */
     protected function getConstantName(): string
     {
         return $this->constantName;
     }
 
+    /**
+     * @return mixed the value of this enum constant
+     */
     protected function getConstantValue()
     {
         return $this->constantValue;
     }
 
+    /**
+     * @param string $name the name of the constant to return
+     * @param array  $arguments (no used)
+     *
+     * @return static the enum constant of the specified name
+     */
     public static function __callStatic(string $name, array $arguments = []): self
     {
+        unset($arguments);
+
         return static::valueOf($name);
     }
 
+    /**
+     * @return string the name of this enum constant
+     */
     public function name(): string
     {
         return $this->constantName;
     }
 
+    /**
+     * @return string the name of this enum constant
+     */
     public function __toString(): string
     {
         return $this->constantName;
     }
 
+    /**
+     * @param string $name the name of the constant to return
+     * @return static the enum constant of the specified name
+     */
     public static function valueOf(string $name): self
     {
         $value = static::constants()[$name];
         return new static($name, $value);
     }
 
+    /**
+     * @return static[] all the constants of an enum type
+     */
     public static function values(): array
     {
         $constants = static::constants();
