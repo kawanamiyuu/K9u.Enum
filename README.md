@@ -111,7 +111,7 @@ string(6) "ff0000"
 */
 ```
 
-### Enum constant can also have enum constan(s)
+### Enum constant can also have enum constant(s)
 
 ```php
 namespace K9u\Enum;
