@@ -25,6 +25,7 @@ interface EnumInterface
 
     /**
      * @param string $name the name of the constant to return
+     *
      * @return static the enum constant of the specified name
      */
     public static function valueOf(string $name);
