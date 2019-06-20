@@ -62,7 +62,13 @@ abstract class AbstractEnum implements EnumInterface
     {
         unset($arguments);
 
-        return static::valueOf($name);
+        $value = static::constants()[$name] ?? null;
+
+        if ($value === null) {
+            throw new \BadMethodCallException('unknown constant name: ' . $name);
+        }
+
+        return new static($name, $value);
     }
 
     /**
@@ -72,7 +78,12 @@ abstract class AbstractEnum implements EnumInterface
      */
     public static function valueOf(string $name): self
     {
-        $value = static::constants()[$name];
+        $value = static::constants()[$name] ?? null;
+
+        if ($value === null) {
+            throw new \InvalidArgumentException('unknown constant name: ' . $name);
+        }
+
         return new static($name, $value);
     }
 
