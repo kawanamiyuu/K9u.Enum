@@ -58,21 +58,24 @@ class EnumTest extends TestCase
         $this->assertSame('LEMON', $fruit1->name());
     }
 
-    public function testUnknownConstantName()
+    public function testCompare()
     {
-        try {
-            Fruit::UNKNOWN();
-            $this->fail();
-        } catch (\Exception $e) {
-            $this->assertInstanceOf(\BadMethodCallException::class, $e);
-        }
-
-        try {
-            Fruit::valueOf('UNKNOWN');
-            $this->fail();
-        } catch (\Exception $e) {
-            $this->assertInstanceOf(\InvalidArgumentException::class, $e);
-        }
+        $this->assertSame(Fruit::APPLE(), Fruit::APPLE());
+        $this->assertSame(Fruit::valueOf('APPLE'), Fruit::valueOf('APPLE'));
+        $this->assertSame(Fruit::values(), Fruit::values());
     }
 
+    public function testUnknownMethodCall()
+    {
+        $this->expectException(\BadMethodCallException::class);
+
+        Fruit::UNKNOWN();
+    }
+
+    public function testUnknownValueOf()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+
+        Fruit::valueOf('UNKNOWN');
+    }
 }
