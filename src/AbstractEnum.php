@@ -6,6 +6,8 @@ namespace K9u\Enum;
 
 abstract class AbstractEnum implements EnumInterface
 {
+    private static $constants;
+
     private $constantName;
     private $constantValue;
 
@@ -62,13 +64,14 @@ abstract class AbstractEnum implements EnumInterface
     {
         unset($arguments);
 
-        $value = static::constants()[$name] ?? null;
-
-        if ($value === null) {
-            throw new \BadMethodCallException('unknown constant name: ' . $name);
+        foreach (self::getConstants() as $constant) {
+            /** @var self $constant */
+            if ($constant->name() === $name) {
+                return $constant;
+            }
         }
 
-        return new static($name, $value);
+        throw new \BadMethodCallException('unknown constant: ' . $name);
     }
 
     /**
@@ -78,13 +81,14 @@ abstract class AbstractEnum implements EnumInterface
      */
     public static function valueOf(string $name): self
     {
-        $value = static::constants()[$name] ?? null;
-
-        if ($value === null) {
-            throw new \InvalidArgumentException('unknown constant name: ' . $name);
+        foreach (self::getConstants() as $constant) {
+            /** @var self $constant */
+            if ($constant->name() === $name) {
+                return $constant;
+            }
         }
 
-        return new static($name, $value);
+        throw new \InvalidArgumentException('unknown constant: ' . $name);
     }
 
     /**
@@ -92,10 +96,30 @@ abstract class AbstractEnum implements EnumInterface
      */
     public static function values(): array
     {
-        $constants = static::constants();
+        return self::getConstants();
+    }
 
-        return array_map(function ($name, $value) {
+    private static function getConstants(): array
+    {
+        if (isset(self::$constants[static::class])) {
+            return self::$constants[static::class];
+        }
+
+        self::$constants[static::class] = self::factory(static::constants(), function ($name, $value) {
             return new static($name, $value);
-        }, array_keys($constants), array_values($constants));
+        });
+
+        return self::$constants[static::class];
+    }
+
+    private static function factory(array $constants, callable $factory): array
+    {
+        $results = [];
+
+        foreach ($constants as $name => $value) {
+            $results[] = $factory($name, $value);
+        }
+
+        return $results;
     }
 }
