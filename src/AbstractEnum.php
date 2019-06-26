@@ -23,14 +23,6 @@ abstract class AbstractEnum implements EnumInterface
     abstract protected static function constants(): array;
 
     /**
-     * @return string the name of this enum constant
-     */
-    protected function getConstantName(): string
-    {
-        return $this->constantName;
-    }
-
-    /**
      * @return mixed the value of this enum constant
      */
     protected function getConstantValue()
@@ -116,6 +108,16 @@ abstract class AbstractEnum implements EnumInterface
     {
         $results = [];
 
+        // sequential
+        if (array_values($constants) === $constants) {
+            foreach ($constants as $name) {
+                $results[] = $factory($name, $name);
+            }
+
+            return $results;
+        }
+
+        // associative
         foreach ($constants as $name => $value) {
             $results[] = $factory($name, $value);
         }
