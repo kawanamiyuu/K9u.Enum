@@ -116,6 +116,16 @@ abstract class AbstractEnum implements EnumInterface
     {
         $results = [];
 
+        // sequential
+        if (array_values($constants) === $constants) {
+            foreach ($constants as $name) {
+                $results[] = $factory($name, $name);
+            }
+
+            return $results;
+        }
+
+        // associative
         foreach ($constants as $name => $value) {
             $results[] = $factory($name, $value);
         }

@@ -13,8 +13,7 @@ final class Flavor extends AbstractEnum
     protected static function constants(): array
     {
         return [
-            'SWEET' => 'SWEET',
-            'SOUR' => 'SOUR'
+            'SWEET', 'SOUR'
         ];
     }
 }
