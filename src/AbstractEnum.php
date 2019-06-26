@@ -23,14 +23,6 @@ abstract class AbstractEnum implements EnumInterface
     abstract protected static function constants(): array;
 
     /**
-     * @return string the name of this enum constant
-     */
-    protected function getConstantName(): string
-    {
-        return $this->constantName;
-    }
-
-    /**
      * @return mixed the value of this enum constant
      */
     protected function getConstantValue()
