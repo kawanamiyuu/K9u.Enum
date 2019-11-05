@@ -16,6 +16,13 @@ interface EnumInterface
     public function __toString(): string;
 
     /**
+     * @param mixed $var variable
+     *
+     * @return bool return true if the specified variable is equal to this enum constant
+     */
+    public function equals($var): bool;
+
+    /**
      * @param string $name the name of the constant to return
      * @param array  $arguments (no use)
      *

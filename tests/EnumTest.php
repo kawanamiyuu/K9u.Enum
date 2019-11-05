@@ -58,6 +58,19 @@ class EnumTest extends TestCase
         $this->assertSame('LEMON', $fruit1->name());
     }
 
+    public function testEquals()
+    {
+        $fruit = Fruit::APPLE();
+
+        $this->assertTrue($fruit->equals(Fruit::APPLE()));
+        $this->assertTrue($fruit->equals(Fruit::valueOf('APPLE')));
+
+        $this->assertFalse($fruit->equals(null));
+        $this->assertFalse($fruit->equals('APPLE'));
+        $this->assertFalse($fruit->equals(FakeFruit::APPLE()));
+        $this->assertFalse($fruit->equals(FakeFruit::valueOf('APPLE')));
+    }
+
     public function testCompare()
     {
         $this->assertSame(Fruit::APPLE(), Fruit::APPLE());
