@@ -27,7 +27,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "K9u\\Enum\\": ["tests/", "tests/Fake/"]
+            "K9u\\Enum\\": ["examples/", "tests/", "tests/Fake/"]
         }
     },
     "scripts": {
