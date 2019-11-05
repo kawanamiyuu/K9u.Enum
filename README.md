@@ -4,7 +4,7 @@
 
 ## Usage
 
-All examples are [here](tests/Fake).
+All examples are [here](examples).
 
 ### Enum constant has single value
 

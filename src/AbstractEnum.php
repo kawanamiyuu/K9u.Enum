@@ -47,6 +47,16 @@ abstract class AbstractEnum implements EnumInterface
     }
 
     /**
+     * @param mixed $var variable
+     *
+     * @return bool return true if the specified variable is equal to this enum constant
+     */
+    public function equals($var): bool
+    {
+        return $var instanceof static && $var->name() === $this->name();
+    }
+
+    /**
      * @param string $name the name of the constant to return
      * @param array  $arguments (no use)
      *
