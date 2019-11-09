@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace K9u\Enum;
 
+use BadMethodCallException;
+use InvalidArgumentException;
+
 abstract class AbstractEnum implements EnumInterface
 {
     private static $constants;
@@ -73,7 +76,7 @@ abstract class AbstractEnum implements EnumInterface
             }
         }
 
-        throw new \BadMethodCallException('unknown constant: ' . $name);
+        throw new BadMethodCallException('unknown constant: ' . $name);
     }
 
     /**
@@ -90,7 +93,7 @@ abstract class AbstractEnum implements EnumInterface
             }
         }
 
-        throw new \InvalidArgumentException('unknown constant: ' . $name);
+        throw new InvalidArgumentException('unknown constant: ' . $name);
     }
 
     /**
