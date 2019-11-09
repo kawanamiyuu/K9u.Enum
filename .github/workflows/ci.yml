@@ -14,6 +14,9 @@ jobs:
       uses: shivammathur/setup-php@1.4.6
       with:
         php-version: ${{ matrix.php-versions }}
+        # NOTE: phpmd ^2.7 requires ext-xml on PHP 7.4
+        # NOTE: phpunit ^8.4 requires ext-dom and ext-mbstring on PHP 7.4
+        extension-csv: xml, dom, mbstring
     - name: PHP version
       run: php -v
     - name: Composer version
