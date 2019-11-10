@@ -1,5 +1,7 @@
 # K9u.Enum
 
+![badge](https://github.com/kawanamiyuu/K9u.Enum/workflows/CI/badge.svg)
+
 **K9u.Enum** provides an Enumeration implementation for PHP. It has the interface like Java's.
 
 ## Usage
