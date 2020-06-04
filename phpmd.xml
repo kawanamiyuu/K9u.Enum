@@ -8,6 +8,12 @@
 
     <rule ref="rulesets/cleancode.xml">
         <exclude name="StaticAccess" />
+        <!--
+            FIXME: upgrade PHPMD to v2.9
+                prevent a false warning of 'Avoid using undefined variables such as '$constants' ...' on AbstractEnum.
+                this is Bug of PHPMD v2.8 (https://github.com/phpmd/phpmd/pull/781).
+        -->
+        <exclude name="UndefinedVariable" />
     </rule>
     <rule ref="rulesets/codesize.xml" />
     <rule ref="rulesets/controversial.xml" />

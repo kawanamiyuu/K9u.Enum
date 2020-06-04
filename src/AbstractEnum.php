@@ -9,7 +9,7 @@ use InvalidArgumentException;
 
 abstract class AbstractEnum implements EnumInterface
 {
-    private static $constants;
+    private static $constants = [];
 
     private $constantName;
     private $constantValue;
