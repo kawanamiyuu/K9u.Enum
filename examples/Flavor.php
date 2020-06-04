@@ -10,6 +10,9 @@ namespace K9u\Enum;
  */
 final class Flavor extends AbstractEnum
 {
+    /**
+     * @return string[]
+     */
     protected static function constants(): array
     {
         return [
