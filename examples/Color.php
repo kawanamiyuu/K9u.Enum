@@ -10,6 +10,9 @@ namespace K9u\Enum;
  */
 final class Color extends AbstractEnum
 {
+    /**
+     * @return array<string, array{array{int, int, int}, string}>
+     */
     protected static function constants(): array
     {
         return [
@@ -18,6 +21,9 @@ final class Color extends AbstractEnum
         ];
     }
 
+    /**
+     * @return array{int, int, int}
+     */
     public function rgb(): array
     {
         return $this->getConstantValue()[0];

@@ -10,6 +10,9 @@ namespace K9u\Enum;
  */
 final class Fruit extends AbstractEnum
 {
+    /**
+     * @return array<string, array{Color, Flavor}>
+     */
     protected static function constants(): array
     {
         return [

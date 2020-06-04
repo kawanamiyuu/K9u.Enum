@@ -24,8 +24,8 @@ interface EnumInterface
     public function equals($var): bool;
 
     /**
-     * @param string $name the name of the constant to return
-     * @param array  $arguments (no use)
+     * @param string       $name the name of the constant to return
+     * @param array<mixed> $arguments (no use)
      *
      * @return static the enum constant of the specified name
      */

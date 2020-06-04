@@ -9,19 +9,33 @@ use InvalidArgumentException;
 
 abstract class AbstractEnum implements EnumInterface
 {
+    /**
+     * @var array<string, static[]>
+     */
     private static $constants = [];
 
+    /**
+     * @var string
+     */
     private $constantName;
+
+    /**
+     * @var mixed
+     */
     private $constantValue;
 
-    private function __construct(string $name, $value)
+    /**
+     * @param string $name
+     * @param mixed  $value
+     */
+    final private function __construct(string $name, $value)
     {
         $this->constantName = $name;
         $this->constantValue = $value;
     }
 
     /**
-     * @return array the definition of the enum constants
+     * @return array<mixed> the definition of the enum constants
      */
     abstract protected static function constants(): array;
 
@@ -34,7 +48,7 @@ abstract class AbstractEnum implements EnumInterface
     }
 
     /**
-     * @return string the name of this enum constant
+     * {@inheritDoc}
      */
     public function name(): string
     {
@@ -42,7 +56,7 @@ abstract class AbstractEnum implements EnumInterface
     }
 
     /**
-     * @return string the name of this enum constant
+     * {@inheritDoc}
      */
     public function __toString(): string
     {
@@ -50,9 +64,7 @@ abstract class AbstractEnum implements EnumInterface
     }
 
     /**
-     * @param mixed $var variable
-     *
-     * @return bool return true if the specified variable is equal to this enum constant
+     * {@inheritDoc}
      */
     public function equals($var): bool
     {
@@ -60,17 +72,14 @@ abstract class AbstractEnum implements EnumInterface
     }
 
     /**
-     * @param string $name the name of the constant to return
-     * @param array  $arguments (no use)
-     *
-     * @return static the enum constant of the specified name
+     * {@inheritDoc}
      */
-    public static function __callStatic(string $name, array $arguments = []): self
+    public static function __callStatic(string $name, array $arguments = [])
     {
         unset($arguments);
 
         foreach (self::getConstants() as $constant) {
-            /** @var self $constant */
+            /** @var static $constant */
             if ($constant->name() === $name) {
                 return $constant;
             }
@@ -80,14 +89,12 @@ abstract class AbstractEnum implements EnumInterface
     }
 
     /**
-     * @param string $name the name of the constant to return
-     *
-     * @return static the enum constant of the specified name
+     * {@inheritDoc}
      */
-    public static function valueOf(string $name): self
+    public static function valueOf(string $name)
     {
         foreach (self::getConstants() as $constant) {
-            /** @var self $constant */
+            /** @var static $constant */
             if ($constant->name() === $name) {
                 return $constant;
             }
@@ -97,13 +104,16 @@ abstract class AbstractEnum implements EnumInterface
     }
 
     /**
-     * @return static[] all the constants of an enum type
+     * {@inheritDoc}
      */
     public static function values(): array
     {
         return self::getConstants();
     }
 
+    /**
+     * @return static[]
+     */
     private static function getConstants(): array
     {
         if (isset(self::$constants[static::class])) {
@@ -117,6 +127,12 @@ abstract class AbstractEnum implements EnumInterface
         return self::$constants[static::class];
     }
 
+    /**
+     * @param array<mixed> $constants
+     * @param callable     $factory
+     *
+     * @return static[]
+     */
     private static function factory(array $constants, callable $factory): array
     {
         $results = [];
