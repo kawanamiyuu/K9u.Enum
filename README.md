@@ -39,7 +39,7 @@ string(5) "SWEET"
 ```
 
 ```php
-$flavor = Flavor::valueOf('SOUR');
+$flavor = Flavor::SOUR();
 
 var_dump($flavor->name());
 /*

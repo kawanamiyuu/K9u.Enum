@@ -34,14 +34,6 @@ class EnumTest extends TestCase
         }
     }
 
-    public function testValueOf()
-    {
-        $fruit = Fruit::valueOf('APPLE');
-
-        $this->assertInstanceOf(Fruit::class, $fruit);
-        $this->assertSame('APPLE', $fruit->name());
-    }
-
     public function testConstants()
     {
         $fruits = Fruit::constants();
@@ -63,18 +55,15 @@ class EnumTest extends TestCase
         $fruit = Fruit::APPLE();
 
         $this->assertTrue($fruit->equals(Fruit::APPLE()));
-        $this->assertTrue($fruit->equals(Fruit::valueOf('APPLE')));
 
         $this->assertFalse($fruit->equals(null));
         $this->assertFalse($fruit->equals('APPLE'));
         $this->assertFalse($fruit->equals(FakeFruit::APPLE()));
-        $this->assertFalse($fruit->equals(FakeFruit::valueOf('APPLE')));
     }
 
     public function testCompare()
     {
         $this->assertSame(Fruit::APPLE(), Fruit::APPLE());
-        $this->assertSame(Fruit::valueOf('APPLE'), Fruit::valueOf('APPLE'));
         $this->assertSame(Fruit::constants(), Fruit::constants());
     }
 
@@ -83,12 +72,5 @@ class EnumTest extends TestCase
         $this->expectException(\BadMethodCallException::class);
 
         Fruit::UNKNOWN();
-    }
-
-    public function testUnknownValueOf()
-    {
-        $this->expectException(\InvalidArgumentException::class);
-
-        Fruit::valueOf('UNKNOWN');
     }
 }

@@ -32,13 +32,6 @@ interface EnumInterface
     public static function __callStatic(string $name, array $arguments = []);
 
     /**
-     * @param string $name the name of the constant to return
-     *
-     * @return static the enum constant of the specified name
-     */
-    public static function valueOf(string $name);
-
-    /**
      * @return static[] all the constants of an enum type
      */
     public static function constants(): array;
