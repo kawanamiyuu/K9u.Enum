@@ -13,7 +13,7 @@ final class Fruit extends AbstractEnum
     /**
      * @return array<string, array{Color, Flavor}>
      */
-    protected static function constants(): array
+    protected static function enumerate(): array
     {
         return [
             'APPLE' => [Color::RED(), Flavor::SWEET()],

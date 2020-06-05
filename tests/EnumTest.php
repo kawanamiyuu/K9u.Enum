@@ -42,9 +42,9 @@ class EnumTest extends TestCase
         $this->assertSame('APPLE', $fruit->name());
     }
 
-    public function testValues()
+    public function testConstants()
     {
-        $fruits = Fruit::values();
+        $fruits = Fruit::constants();
         $this->assertCount(2, $fruits);
 
         /** @var Fruit $fruit0 */
@@ -75,7 +75,7 @@ class EnumTest extends TestCase
     {
         $this->assertSame(Fruit::APPLE(), Fruit::APPLE());
         $this->assertSame(Fruit::valueOf('APPLE'), Fruit::valueOf('APPLE'));
-        $this->assertSame(Fruit::values(), Fruit::values());
+        $this->assertSame(Fruit::constants(), Fruit::constants());
     }
 
     public function testUnknownMethodCall()

@@ -37,7 +37,7 @@ abstract class AbstractEnum implements EnumInterface
     /**
      * @return array<mixed> the definition of the enum constants
      */
-    abstract protected static function constants(): array;
+    abstract protected static function enumerate(): array;
 
     /**
      * @return mixed the value of this enum constant
@@ -78,7 +78,7 @@ abstract class AbstractEnum implements EnumInterface
     {
         unset($arguments);
 
-        foreach (self::getConstants() as $constant) {
+        foreach (self::constants() as $constant) {
             /** @var static $constant */
             if ($constant->name() === $name) {
                 return $constant;
@@ -93,7 +93,7 @@ abstract class AbstractEnum implements EnumInterface
      */
     final public static function valueOf(string $name)
     {
-        foreach (self::getConstants() as $constant) {
+        foreach (self::constants() as $constant) {
             /** @var static $constant */
             if ($constant->name() === $name) {
                 return $constant;
@@ -106,21 +106,13 @@ abstract class AbstractEnum implements EnumInterface
     /**
      * {@inheritDoc}
      */
-    final public static function values(): array
-    {
-        return self::getConstants();
-    }
-
-    /**
-     * @return static[]
-     */
-    private static function getConstants(): array
+    final public static function constants(): array
     {
         if (isset(self::$constants[static::class])) {
             return self::$constants[static::class];
         }
 
-        self::$constants[static::class] = self::factory(static::constants(), function ($name, $value) {
+        self::$constants[static::class] = self::factory(static::enumerate(), function ($name, $value) {
             return new static($name, $value);
         });
 

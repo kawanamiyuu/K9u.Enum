@@ -19,17 +19,18 @@ namespace K9u\Enum;
  */
 final class Flavor extends AbstractEnum
 {
-    protected static function constants(): array
+    protected static function enumerate(): array
     {
         return [
-            'SWEET', 'SOUR'
+            'SWEET',
+            'SOUR'
         ];
     }
 }
 ```
 
 ```php
-$flavor = Flavor::SWEET(); 
+$flavor = Flavor::SWEET();
 
 var_dump($flavor->name());
 /*
@@ -47,7 +48,7 @@ string(4) "SOUR"
 ```
 
 ```php
-$flavors = Flavor::values();
+$flavors = Flavor::constants();
 
 var_dump($flavors[0]->name());
 /*
@@ -71,7 +72,7 @@ namespace K9u\Enum;
  */
 final class Color extends AbstractEnum
 {
-    protected static function constants(): array
+    protected static function enumerate(): array
     {
         return [
             'RED' => [[255, 0, 0], 'ff0000'],
@@ -123,7 +124,7 @@ namespace K9u\Enum;
  */
 final class Fruit extends AbstractEnum
 {
-    protected static function constants(): array
+    protected static function enumerate(): array
     {
         return [
             'APPLE' => [Color::RED(), Flavor::SWEET()],

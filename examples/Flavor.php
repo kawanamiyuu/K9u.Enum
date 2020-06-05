@@ -13,10 +13,11 @@ final class Flavor extends AbstractEnum
     /**
      * @return string[]
      */
-    protected static function constants(): array
+    protected static function enumerate(): array
     {
         return [
-            'SWEET', 'SOUR'
+            'SWEET',
+            'SOUR'
         ];
     }
 }

@@ -41,5 +41,5 @@ interface EnumInterface
     /**
      * @return static[] all the constants of an enum type
      */
-    public static function values(): array;
+    public static function constants(): array;
 }
