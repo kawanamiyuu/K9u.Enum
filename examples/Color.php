@@ -13,7 +13,7 @@ final class Color extends AbstractEnum
     /**
      * @return array<string, array{array{int, int, int}, string}>
      */
-    protected static function constants(): array
+    protected static function enumerate(): array
     {
         return [
             'RED' => [[255, 0, 0], 'ff0000'],

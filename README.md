@@ -2,13 +2,13 @@
 
 ![badge](https://github.com/kawanamiyuu/K9u.Enum/workflows/CI/badge.svg)
 
-**K9u.Enum** provides an Enumeration implementation for PHP. It has the interface like Java's.
+**K9u.Enum** provides an Enumeration implementation for PHP.
 
 ## Usage
 
 All examples are [here](examples).
 
-### Enum constant has single value
+### Simple Enum
 
 ```php
 namespace K9u\Enum;
@@ -19,48 +19,34 @@ namespace K9u\Enum;
  */
 final class Flavor extends AbstractEnum
 {
-    protected static function constants(): array
+    /**
+     * @return string[]
+     */
+    protected static function enumerate(): array
     {
         return [
-            'SWEET', 'SOUR'
+            'SWEET',
+            'SOUR'
         ];
     }
 }
 ```
 
 ```php
-$flavor = Flavor::SWEET(); 
+$flavor = Flavor::SWEET();
 
-var_dump($flavor->name());
+var_dump(get_class($flavor));
+/*
+string(15) "K9u\Enum\Flavor"
+*/
+
+var_dump((string) $flavor);
 /*
 string(5) "SWEET"
 */
 ```
 
-```php
-$flavor = Flavor::valueOf('SOUR');
-
-var_dump($flavor->name());
-/*
-string(4) "SOUR"
-*/
-```
-
-```php
-$flavors = Flavor::values();
-
-var_dump($flavors[0]->name());
-/*
-string(5) "SWEET"
-*/
-
-var_dump($flavors[1]->name());
-/*
-string(4) "SOUR"
-*/
-```
-
-### Enum constant has multiple values
+### Enum constant has values
 
 ```php
 namespace K9u\Enum;
@@ -71,7 +57,10 @@ namespace K9u\Enum;
  */
 final class Color extends AbstractEnum
 {
-    protected static function constants(): array
+    /**
+     * @return array<string, array{array{int, int, int}, string}>
+     */
+    protected static function enumerate(): array
     {
         return [
             'RED' => [[255, 0, 0], 'ff0000'],
@@ -79,6 +68,9 @@ final class Color extends AbstractEnum
         ];
     }
 
+    /**
+     * @return array{int, int, int}
+     */
     public function rgb(): array
     {
         return $this->getConstantValue()[0];
@@ -119,15 +111,18 @@ namespace K9u\Enum;
 
 /**
  * @method static Fruit APPLE()
- * @method static Fruit LEMON()
+ * @method static Fruit BANANA()
  */
 final class Fruit extends AbstractEnum
 {
-    protected static function constants(): array
+    /**
+     * @return array<string, array{Color, Flavor, Season[]}>
+     */
+    protected static function enumerate(): array
     {
         return [
-            'APPLE' => [Color::RED(), Flavor::SWEET()],
-            'LEMON' => [Color::YELLOW(), Flavor::SOUR()]
+            'APPLE' => [Color::RED(), Flavor::SWEET(), [Season::AUTUMN(), Season::WINTER()]],
+            'BANANA' => [Color::YELLOW(), Flavor::SOUR(), [Season::SUMMER()]]
         ];
     }
 
@@ -139,6 +134,14 @@ final class Fruit extends AbstractEnum
     public function flavor(): Flavor
     {
         return $this->getConstantValue()[1];
+    }
+
+    /**
+     * @return Season[]
+     */
+    public function seasons(): array
+    {
+        return $this->getConstantValue()[2];
     }
 }
 ```
@@ -154,5 +157,11 @@ string(3) "RED"
 var_dump((string) $fruit->flavor());
 /*
 string(5) "SWEET"
+*/
+
+var_dump((string) $fruit->seasons()[0], (string) $fruit->seasons()[1]);
+/*
+string(6) "AUTUMN"
+string(6) "WINTER"
 */
 ```

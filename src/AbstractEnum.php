@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace K9u\Enum;
 
 use BadMethodCallException;
-use InvalidArgumentException;
 
 abstract class AbstractEnum implements EnumInterface
 {
@@ -35,9 +34,17 @@ abstract class AbstractEnum implements EnumInterface
     }
 
     /**
-     * @return array<mixed> the definition of the enum constants
+     * @return string[]|array<string, mixed> the definition of the enum constants
      */
-    abstract protected static function constants(): array;
+    abstract protected static function enumerate(): array;
+
+    /**
+     * @return string the name of this enum constant
+     */
+    final protected function getConstantName(): string
+    {
+        return $this->constantName;
+    }
 
     /**
      * @return mixed the value of this enum constant
@@ -50,17 +57,17 @@ abstract class AbstractEnum implements EnumInterface
     /**
      * {@inheritDoc}
      */
-    final public function name(): string
+    final public static function constants(): array
     {
-        return $this->constantName;
-    }
+        if (isset(self::$constants[static::class])) {
+            return self::$constants[static::class];
+        }
 
-    /**
-     * {@inheritDoc}
-     */
-    final public function __toString(): string
-    {
-        return $this->constantName;
+        self::$constants[static::class] = self::factory(static::enumerate(), function ($name, $value) {
+            return new static($name, $value);
+        });
+
+        return self::$constants[static::class];
     }
 
     /**
@@ -68,7 +75,7 @@ abstract class AbstractEnum implements EnumInterface
      */
     final public function equals($var): bool
     {
-        return $var instanceof static && $var->name() === $this->name();
+        return $var instanceof static && $var->getConstantName() === $this->getConstantName();
     }
 
     /**
@@ -78,9 +85,9 @@ abstract class AbstractEnum implements EnumInterface
     {
         unset($arguments);
 
-        foreach (self::getConstants() as $constant) {
+        foreach (self::constants() as $constant) {
             /** @var static $constant */
-            if ($constant->name() === $name) {
+            if ($constant->getConstantName() === $name) {
                 return $constant;
             }
         }
@@ -91,40 +98,9 @@ abstract class AbstractEnum implements EnumInterface
     /**
      * {@inheritDoc}
      */
-    final public static function valueOf(string $name)
+    final public function __toString(): string
     {
-        foreach (self::getConstants() as $constant) {
-            /** @var static $constant */
-            if ($constant->name() === $name) {
-                return $constant;
-            }
-        }
-
-        throw new InvalidArgumentException('unknown constant: ' . $name);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    final public static function values(): array
-    {
-        return self::getConstants();
-    }
-
-    /**
-     * @return static[]
-     */
-    private static function getConstants(): array
-    {
-        if (isset(self::$constants[static::class])) {
-            return self::$constants[static::class];
-        }
-
-        self::$constants[static::class] = self::factory(static::constants(), function ($name, $value) {
-            return new static($name, $value);
-        });
-
-        return self::$constants[static::class];
+        return $this->getConstantName();
     }
 
     /**

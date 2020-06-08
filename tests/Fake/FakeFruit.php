@@ -10,7 +10,7 @@ namespace K9u\Enum;
  */
 final class FakeFruit extends AbstractEnum
 {
-    protected static function constants(): array
+    protected static function enumerate(): array
     {
         return [
             'APPLE' => [Color::RED(), Flavor::SWEET()],
