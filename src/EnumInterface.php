@@ -7,9 +7,9 @@ namespace K9u\Enum;
 interface EnumInterface
 {
     /**
-     * @return string the name of this enum constant
+     * @return static[] all the constants of an enum type
      */
-    public function __toString(): string;
+    public static function constants(): array;
 
     /**
      * @param mixed $var variable
@@ -27,7 +27,7 @@ interface EnumInterface
     public static function __callStatic(string $name, array $arguments = []);
 
     /**
-     * @return static[] all the constants of an enum type
+     * @return string the name of this enum constant
      */
-    public static function constants(): array;
+    public function __toString(): string;
 }

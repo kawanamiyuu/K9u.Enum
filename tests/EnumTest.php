@@ -29,6 +29,19 @@ class EnumTest extends TestCase
             $this->assertInstanceOf(Flavor::class, $flavor);
             $this->assertSame('SWEET', (string) $flavor);
         }
+
+        $seasons = $fruit->seasons();
+        {
+            $this->assertCount(2, $seasons);
+
+            $this->assertInstanceOf(Season::class, $seasons[0]);
+            $this->assertSame('AUTUMN', (string) $seasons[0]);
+            $this->assertSame(2, $seasons[0]->value());
+
+            $this->assertInstanceOf(Season::class, $seasons[1]);
+            $this->assertSame('WINTER', (string) $seasons[1]);
+            $this->assertSame(3, $seasons[1]->value());
+        }
     }
 
     public function testConstants()
@@ -36,15 +49,11 @@ class EnumTest extends TestCase
         $fruits = Fruit::constants();
         $this->assertCount(2, $fruits);
 
-        /** @var Fruit $fruit0 */
-        $fruit0 = $fruits[0];
-        $this->assertInstanceOf(Fruit::class, $fruit0);
-        $this->assertSame('APPLE', (string) $fruit0);
+        $this->assertInstanceOf(Fruit::class, $fruits[0]);
+        $this->assertSame('APPLE', (string) $fruits[0]);
 
-        /** @var Fruit $fruit1 */
-        $fruit1 = $fruits[1];
-        $this->assertInstanceOf(Fruit::class, $fruit1);
-        $this->assertSame('LEMON', (string) $fruit1);
+        $this->assertInstanceOf(Fruit::class, $fruits[1]);
+        $this->assertSame('BANANA', (string) $fruits[1]);
     }
 
     public function testEquals()
@@ -62,6 +71,9 @@ class EnumTest extends TestCase
     {
         $this->assertSame(Fruit::APPLE(), Fruit::APPLE());
         $this->assertSame(Fruit::constants(), Fruit::constants());
+
+        $this->assertNotSame(Fruit::APPLE(), Fruit::BANANA());
+        $this->assertNotSame(Fruit::APPLE(), FakeFruit::APPLE());
     }
 
     public function testUnknownMethodCall()
