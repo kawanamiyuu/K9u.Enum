@@ -2,7 +2,7 @@
 
 ![badge](https://github.com/kawanamiyuu/K9u.Enum/workflows/CI/badge.svg)
 
-**K9u.Enum** provides an Enumeration implementation for PHP. It has the interface like Java's.
+**K9u.Enum** provides an Enumeration implementation for PHP.
 
 ## Usage
 
@@ -32,7 +32,7 @@ final class Flavor extends AbstractEnum
 ```php
 $flavor = Flavor::SWEET();
 
-var_dump($flavor->name());
+var_dump((string) $flavor);
 /*
 string(5) "SWEET"
 */
@@ -41,7 +41,7 @@ string(5) "SWEET"
 ```php
 $flavor = Flavor::SOUR();
 
-var_dump($flavor->name());
+var_dump((string) $flavor);
 /*
 string(4) "SOUR"
 */
@@ -50,12 +50,12 @@ string(4) "SOUR"
 ```php
 $flavors = Flavor::constants();
 
-var_dump($flavors[0]->name());
+var_dump((string) $flavors[0]);
 /*
 string(5) "SWEET"
 */
 
-var_dump($flavors[1]->name());
+var_dump((string) $flavors[1]);
 /*
 string(4) "SOUR"
 */

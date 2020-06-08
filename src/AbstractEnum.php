@@ -39,6 +39,14 @@ abstract class AbstractEnum implements EnumInterface
     abstract protected static function enumerate(): array;
 
     /**
+     * @return mixed the name of this enum constant
+     */
+    final protected function getConstantName()
+    {
+        return $this->constantName;
+    }
+
+    /**
      * @return mixed the value of this enum constant
      */
     final protected function getConstantValue()
@@ -49,17 +57,9 @@ abstract class AbstractEnum implements EnumInterface
     /**
      * {@inheritDoc}
      */
-    final public function name(): string
-    {
-        return $this->constantName;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     final public function __toString(): string
     {
-        return $this->constantName;
+        return $this->getConstantName();
     }
 
     /**
@@ -67,7 +67,7 @@ abstract class AbstractEnum implements EnumInterface
      */
     final public function equals($var): bool
     {
-        return $var instanceof static && $var->name() === $this->name();
+        return $var instanceof static && $var->getConstantName() === $this->getConstantName();
     }
 
     /**
@@ -79,7 +79,7 @@ abstract class AbstractEnum implements EnumInterface
 
         foreach (self::constants() as $constant) {
             /** @var static $constant */
-            if ($constant->name() === $name) {
+            if ($constant->getConstantName() === $name) {
                 return $constant;
             }
         }

@@ -9,11 +9,6 @@ interface EnumInterface
     /**
      * @return string the name of this enum constant
      */
-    public function name(): string;
-
-    /**
-     * @return string the name of this enum constant
-     */
     public function __toString(): string;
 
     /**
