@@ -55,7 +55,7 @@ abstract class AbstractEnum implements EnumInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @return static[] all the constants of an enum type
      */
     final public static function constants(): array
     {
@@ -71,7 +71,9 @@ abstract class AbstractEnum implements EnumInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @param mixed $var variable
+     *
+     * @return bool return true if the specified variable is equal to this enum constant
      */
     final public function equals($var): bool
     {
@@ -79,7 +81,10 @@ abstract class AbstractEnum implements EnumInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @param string       $name the name of the constant to return
+     * @param array<mixed> $arguments (no use)
+     *
+     * @return static the enum constant of the specified name
      */
     final public static function __callStatic(string $name, array $arguments = [])
     {
@@ -96,7 +101,7 @@ abstract class AbstractEnum implements EnumInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @return string the name of this enum constant
      */
     final public function __toString(): string
     {
