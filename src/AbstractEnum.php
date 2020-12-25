@@ -86,7 +86,7 @@ abstract class AbstractEnum implements EnumInterface
      *
      * @return static the enum constant of the specified name
      */
-    final public static function __callStatic(string $name, array $arguments = [])
+    final public static function __callStatic(string $name, array $arguments = []): static
     {
         unset($arguments);
 
