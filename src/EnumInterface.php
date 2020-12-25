@@ -24,7 +24,7 @@ interface EnumInterface
      *
      * @return static the enum constant of the specified name
      */
-    public static function __callStatic(string $name, array $arguments = []);
+    public static function __callStatic(string $name, array $arguments = []): static;
 
     /**
      * @return string the name of this enum constant
